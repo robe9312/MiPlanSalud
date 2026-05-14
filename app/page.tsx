@@ -168,6 +168,7 @@ export default function HomePage() {
 ${planDiario.trim()}
 
 💧 Bebe 2-3L agua | 🛌 Duerme 7-8h
+🛒 Suplemento recomendado: amzn.to/proteina-vip
 
 ⚠️ Consulta médico antes. #PlanSaludGratis`;
 
@@ -490,6 +491,23 @@ ${planDiario.trim()}
                       <><Copy className="w-5 h-5" /> Copiar Texto al Portapapeles</>
                     )}
                   </button>
+                </div>
+
+                {/* Premium Upsell */}
+                <div className="mt-8 p-5 bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-200 rounded-[16px] text-center shadow-[0_4px_15px_rgba(251,191,36,0.15)]">
+                  <div className="inline-flex items-center justify-center w-10 h-10 bg-amber-100 text-amber-500 rounded-full mb-3">
+                    <TrendingDown className="w-5 h-5" />
+                  </div>
+                  <p className="text-[15px] text-amber-900 font-bold mb-1">🔥 ¿Quieres resultados más rápidos?</p>
+                  <p className="text-[13px] text-amber-700/80 mb-4 leading-relaxed">
+                    Desbloquea el <strong>Plan de 30 días + Seguimiento 1 a 1 por WhatsApp</strong>.
+                  </p>
+                  <a 
+                    href="#premium"
+                    className="w-full py-[12px] px-6 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-[12px] text-[14px] flex items-center justify-center transition-all shadow-md active:scale-[0.98]"
+                  >
+                    ¡Sí, quiero el plan Premium! ($2.99)
+                  </a>
                 </div>
               </div>
               

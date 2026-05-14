@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plan Salud Gratis WhatsApp | BMI + Rutina 7 Días</title>
+    <meta name="description" content="Calcula tu BMI, calorías y obtén una rutina fitness gratis directamente a tu WhatsApp.">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍏</text></svg>">
+</head>
+<body>
+    <!-- HEADER AD -->
+    <div class="ad-container header-ad">
+        <div class="adsense-placeholder">[ADSENSE HEADER 728x90]</div>
+    </div>
+
+    <header>
+        <div class="header-content">
+            <h1>🍏 PlanSaludGratis</h1>
+            <p>Tu Plan BMI + Rutina 7 Días en tu WhatsApp</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="main-grid">
+            <div class="form-card card">
+                <h2>Genera tu plan personalizado</h2>
+                <form id="healthForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="sexo">Sexo</label>
+                            <select id="sexo" required>
+                                <option value="H">Hombre</option>
+                                <option value="M">Mujer</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="edad">Edad</label>
+                            <input type="number" id="edad" min="18" max="80" placeholder="Ej. 30" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="peso">Peso (kg)</label>
+                            <input type="number" id="peso" min="30" max="200" step="0.1" placeholder="Ej. 75.5" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="altura">Altura (cm)</label>
+                            <input type="number" id="altura" min="100" max="250" placeholder="Ej. 175" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="actividad">Nivel de Actividad</label>
+                        <select id="actividad" required>
+                            <option value="1.2">Sedentario (Poco o ningún ejercicio)</option>
+                            <option value="1.375">Ligero (1-3 días/sem)</option>
+                            <option value="1.55">Moderado (3-5 días/sem)</option>
+                            <option value="1.725">Activo (6-7 días/sem)</option>
+                            <option value="1.9">Muy Activo (Doble turno)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="objetivo">Objetivo</label>
+                        <select id="objetivo" required>
+                            <option value="-500">Perder Peso</option>
+                            <option value="0">Mantener Peso</option>
+                            <option value="300">Ganar Músculo</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dieta">Dieta</label>
+                        <select id="dieta" required>
+                            <option value="Normal">Normal (Equilibrada)</option>
+                            <option value="Vegetariana">Vegetariana</option>
+                            <option value="Baja Carb">Baja Carb</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group phone-group">
+                        <label for="telefono">WhatsApp</label>
+                        <input type="tel" id="telefono" placeholder="+34 600 000 000" required>
+                        <small>Usa formato internacional (+codigo).</small>
+                    </div>
+
+                    <button type="submit" class="btn-primary">¡GENERAR PLAN WHATSAPP GRATIS!</button>
+                </form>
+            </div>
+
+            <div class="sidebar">
+                <!-- SIDEBAR AD -->
+                <div class="ad-container sidebar-ad mb-20">
+                    <div class="adsense-placeholder">[ADSENSE SIDEBAR 300x250]</div>
+                </div>
+
+                <div class="card premium-card">
+                    <h3>🔥 Resultados Más Rápidos</h3>
+                    <p>Desbloquea el Plan de 30 días + Seguimiento 1 a 1 por WhatsApp.</p>
+                    <a href="#premium" class="btn-premium">PREMIUM $2.99 PLAN 30 DÍAS</a>
+                </div>
+
+                <div class="card affiliate-card">
+                    <h3>💪 Recomendaciones</h3>
+                    <p>Mejora tus resultados con las mejores proteínas.</p>
+                    <a href="#afiliado" class="btn-affiliate">[AFILIADO SUPLEMENTOS]</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal Resultados -->
+    <div id="resultModal" class="modal">
+        <div class="modal-content card">
+            <span class="close">&times;</span>
+            <h2>¡Tu Plan está listo!</h2>
+            <div id="planPreview" class="plan-preview"></div>
+            
+            <a id="waLink" href="#" target="_blank" class="btn-whatsapp">
+                📱 ABRIR EN WHATSAPP
+            </a>
+            
+            <div class="premium-upsell">
+                <p>✅ Plan 7 días preparado</p>
+                <p>🔥 ¿Quieres 30 días + seguimiento?</p>
+                <a href="#checkout" class="btn-premium-sm">¡Sí, premium! $2.99</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER AD -->
+    <div class="ad-container footer-ad">
+        <div class="adsense-placeholder">[ADSENSE FOOTER 728x90]</div>
+    </div>
+
+    <footer>
+        <p>⚠️ Aviso: Las fórmulas (BMI, BMR, TDEE) son aproximaciones estándar. Consulta a un médico antes de iniciar dietas o rutinas.</p>
+        <p>&copy; 2026 PlanSaludGratis</p>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
