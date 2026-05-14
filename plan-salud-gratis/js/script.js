@@ -84,12 +84,21 @@ ${planDiario.trim()}
 
 #PlanSaludGratis`;
 
-        // Mostrar Preview y link
-        planPreview.innerText = mensaje;
-        
-        const urlWa = `https://wa.me/${cleanPhone.replace('+', '')}?text=${encodeURIComponent(mensaje)}`;
-        waLink.href = urlWa;
-
+        // Mostrar Modal AI Processing
         modal.classList.add('show');
+        document.getElementById('aiProcessing').style.display = 'block';
+        document.getElementById('aiReady').style.display = 'none';
+        document.getElementById('aiStatusText').innerText = "Analizando perfil de salud...";
+
+        setTimeout(() => document.getElementById('aiStatusText').innerText = "Calculando BMI y TDEE...", 800);
+        setTimeout(() => document.getElementById('aiStatusText').innerText = "Diseñando menú personalizado...", 1600);
+        setTimeout(() => {
+            document.getElementById('aiProcessing').style.display = 'none';
+            document.getElementById('aiReady').style.display = 'block';
+
+            // Set link
+            const urlWa = `https://wa.me/${cleanPhone.replace('+', '')}?text=${encodeURIComponent(mensaje)}`;
+            waLink.href = urlWa;
+        }, 2700);
     });
 });

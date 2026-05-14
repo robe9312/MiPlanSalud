@@ -82,6 +82,10 @@ export default function HomePage() {
   const [waLink, setWaLink] = useState("");
   const [copied, setCopied] = useState(false);
 
+  // Asistente IA States
+  const [aiState, setAiState] = useState<"idle" | "analyzing" | "ready">("idle");
+  const [aiText, setAiText] = useState("Procesando datos...");
+
   useEffect(() => {
     setIsClient(true);
     // Recover from localStorage if exists
@@ -173,12 +177,17 @@ ${planDiario.trim()}
 ⚠️ Consulta médico antes. #PlanSaludGratis`;
 
     setGeneratedMessage(message);
-
-    // Filter non-numerical characters from phone except '+'
     const cleanPhone = phone.replace(/[^\d+]/g, '');
-    const url = `https://wa.me/${cleanPhone.replace('+', '')}?text=${encodeURIComponent(message)}`;
-    setWaLink(url);
+    setWaLink(`https://wa.me/${cleanPhone.replace('+', '')}?text=${encodeURIComponent(message)}`);
+
+    // Iniciar flujo del asistente IA
     setIsModalOpen(true);
+    setAiState("analyzing");
+    setAiText("Analizando perfil biométrico...");
+    
+    setTimeout(() => setAiText("Calculando BMR y ajustando macros..."), 900);
+    setTimeout(() => setAiText("Diseñando rutina fitness semanal..."), 1800);
+    setTimeout(() => setAiState("ready"), 2700);
   };
 
   const handleCopyToClipboard = () => {
@@ -451,71 +460,49 @@ ${planDiario.trim()}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-lg bg-white/90 backdrop-blur-xl rounded-[24px] shadow-[0_8px_32px_rgba(0,0,0,0.15)] border border-white z-50 overflow-hidden flex flex-col max-h-[90vh]"
             >
-              <div className="bg-[#075e54] px-6 py-4 text-white flex items-center justify-between border-b border-white/20">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-[#ccc] rounded-full flex items-center justify-center shrink-0 overflow-hidden">
-                    <HeartPulse className="w-6 h-6 text-[#075e54]" />
+              {/* AI Modal Assistant */}
+              <div className="px-6 py-8 flex flex-col items-center justify-center min-h-[300px]">
+                {aiState === "analyzing" ? (
+                  <div className="text-center w-full">
+                    <div className="relative w-20 h-20 mx-auto mb-6">
+                      <div className="absolute inset-0 bg-[#25D366]/20 rounded-full animate-ping"></div>
+                      <div className="w-20 h-20 bg-[#25D366]/10 rounded-full flex items-center justify-center border-4 border-[#25D366]"></div>
+                    </div>
+                    <h3 className="font-heading font-bold text-2xl text-gray-800 tracking-tight">Asistente IA</h3>
+                    <p className="mt-3 text-sm text-[#666] font-medium bg-[#f0f4f8] py-2 px-4 rounded-full inline-block animate-pulse">
+                      {aiText}
+                    </p>
                   </div>
-                  <div>
-                    <h3 className="font-heading font-semibold text-[15px]">PlanSaludGratis.com</h3>
-                    <p className="text-[11px] opacity-80 mt-0.5">en línea</p>
+                ) : (
+                  <div className="text-center w-full animate-in fade-in zoom-in duration-300">
+                    <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-5">
+                      <CheckCircle2 className="w-10 h-10 text-green-500" />
+                    </div>
+                    <h3 className="font-heading font-bold text-2xl text-gray-800">¡Plan Destrabado!</h3>
+                    <p className="mt-2 text-[14px] text-[#666] leading-relaxed">
+                      Por tu privacidad no lo mostramos en pantalla. Envíalo directamente a tu WhatsApp o cópialo a tu portapapeles.
+                    </p>
+                    
+                    <div className="w-full flex-col gap-3 mt-8 space-y-3">
+                      <a href={waLink} target="_blank" rel="noopener noreferrer" className="w-full py-[14px] bg-[#25D366] font-bold text-white rounded-[16px] text-[15px] flex items-center justify-center gap-2 shadow-[0_4px_15px_rgba(37,211,102,0.3)] transition-transform hover:scale-[1.02] active:scale-95">
+                        <Send className="w-5 h-5" /> Enviar Oculto por WhatsApp
+                      </a>
+                    </div>
+
+                    <div className="mt-6 border-t border-[#eee] pt-4">
+                      <a href="#premium" className="text-[13px] font-bold text-amber-500 hover:text-amber-600 transition-colors">
+                        🔥 Quiero Seguimiento Premium 30 días ($2.99)
+                      </a>
+                    </div>
                   </div>
-                </div>
-              </div>
-
-              <div className="p-6 flex-1 overflow-y-auto bg-[#e5ddd5]">
-                <p className="text-[12px] text-center mb-4 uppercase tracking-[1px] font-bold text-black/40">Listo para enviar</p>
-                
-                <div className="bg-white p-[15px] rounded-[0_15px_15px_15px] mb-6 font-sans text-[13px] leading-[1.5] text-gray-800 whitespace-pre-wrap shadow-[0_2px_5px_rgba(0,0,0,0.1)] relative">
-                  {generatedMessage}
-                </div>
-
-                <div className="space-y-3 mt-8">
-                  <a 
-                    href={waLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full py-[14px] px-6 bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold rounded-[16px] text-[15px] flex items-center justify-center gap-2 transition-all shadow-[0_4px_15px_rgba(37,211,102,0.3)] active:scale-[0.98]"
-                  >
-                    <Send className="w-5 h-5" />
-                    Abrir WhatsApp
-                  </a>
-                  
-                  <button
-                    onClick={handleCopyToClipboard}
-                    className="w-full py-[12px] px-6 bg-white hover:bg-gray-50 border border-[#ddd] text-[#666] font-semibold rounded-[12px] flex items-center justify-center gap-2 transition-all text-[14px]"
-                  >
-                    {copied ? (
-                      <><CheckCircle2 className="w-5 h-5 text-[#4CAF50]" /> Copiado</>
-                    ) : (
-                      <><Copy className="w-5 h-5" /> Copiar Texto al Portapapeles</>
-                    )}
-                  </button>
-                </div>
-
-                {/* Premium Upsell */}
-                <div className="mt-8 p-5 bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-200 rounded-[16px] text-center shadow-[0_4px_15px_rgba(251,191,36,0.15)]">
-                  <div className="inline-flex items-center justify-center w-10 h-10 bg-amber-100 text-amber-500 rounded-full mb-3">
-                    <TrendingDown className="w-5 h-5" />
-                  </div>
-                  <p className="text-[15px] text-amber-900 font-bold mb-1">🔥 ¿Quieres resultados más rápidos?</p>
-                  <p className="text-[13px] text-amber-700/80 mb-4 leading-relaxed">
-                    Desbloquea el <strong>Plan de 30 días + Seguimiento 1 a 1 por WhatsApp</strong>.
-                  </p>
-                  <a 
-                    href="#premium"
-                    className="w-full py-[12px] px-6 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-[12px] text-[14px] flex items-center justify-center transition-all shadow-md active:scale-[0.98]"
-                  >
-                    ¡Sí, quiero el plan Premium! ($2.99)
-                  </a>
-                </div>
+                )}
               </div>
               
               <button 
                 onClick={() => setIsModalOpen(false)}
                 className="py-4 bg-white border-t border-[#ddd] text-[#999] text-[13px] font-bold tracking-[1px] uppercase hover:bg-gray-50 transition-colors"
               >
-                Cerrar
+                Cancelar
               </button>
             </motion.div>
           </>
