@@ -1,0 +1,5 @@
+{
+  "name": "Plan Salud Gratis WhatsApp",
+  "description": "App para generar planes de salud personalizados y enviarlos directamente por WhatsApp. Incluye cálculos de BMI, TDEE y rutinas.",
+  "requestFramePermissions": []
+}
